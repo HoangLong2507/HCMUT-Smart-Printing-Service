@@ -1,13 +1,13 @@
-package com.HCMUT.SSPS;
+package com.HCMUT_SSPS.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SspsApplication {
+public class ServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SspsApplication.class, args);
+		SpringApplication.run(ServerApplication.class, args);
 	}
 
 }
