@@ -1,10 +1,10 @@
-package com.HCMUT_SSPS.server;
+package com.crud_project.HCMUT.SSPS;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ServerApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
