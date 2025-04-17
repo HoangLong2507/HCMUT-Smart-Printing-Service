@@ -7,8 +7,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Data
 @AllArgsConstructor
@@ -17,15 +21,28 @@ public class CustomUserDetails implements UserDetails {
     private BaseUser user;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public CustomUserDetails (BaseUser user, String password, String role) {
+    public CustomUserDetails (BaseUser user, String password, String roles) {
         this.user = user;
         this.password = password;
-        this.authorities = Collections.singletonList(new SimpleGrantedAuthority(role));
+        this.authorities = Collections.unmodifiableCollection(
+                roles == null ? Collections.emptyList():
+                        Stream.of(roles.split(","))
+                                .map(role -> new SimpleGrantedAuthority(role.trim()))
+                                .collect(Collectors.toCollection(ArrayList::new))
+        );
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
+    }
+
+    public String getRoles() {
+        return this.authorities
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
     }
 
     @Override

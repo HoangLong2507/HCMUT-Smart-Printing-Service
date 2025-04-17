@@ -15,14 +15,17 @@ import java.util.Optional;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
+    private final SPSORepository spsoRepository;
+    private final HttpServletRequest request;
 
     @Autowired
-    private SPSORepository spsoRepository;
+    public CustomUserDetailsService(CustomerRepository customerRepository, SPSORepository spsoRepository, HttpServletRequest request) {
+        this.customerRepository = customerRepository;
+        this.spsoRepository = spsoRepository;
+        this.request = request;
+    }
 
-    @Autowired
-    private HttpServletRequest request;
     @Override
     public CustomUserDetails loadUserByUsername(String username)  {
         String requesturl = request.getRequestURL().toString();
@@ -38,7 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             return new CustomUserDetails(customer.get(), customer.get().getPassword(), "ROLE_CUSTOMER");
         }
         else if (spso.isPresent()) {
-            return new CustomUserDetails(spso.get(),spso.get().getPassword(),"ROLE_SPSO");
+            return new CustomUserDetails(spso.get(),spso.get().getPassword(),"ROLE_CUSTOMER,ROLE_SPSO");
         }
         throw new UsernameNotFoundException("Can not find User with username " + username );
     }
