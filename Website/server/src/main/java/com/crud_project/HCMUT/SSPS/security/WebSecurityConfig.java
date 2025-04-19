@@ -58,7 +58,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/v1/printer/**").hasRole("SPSO")
                         .requestMatchers("/api/v1/spso/**").hasRole("SPSO")
                         .requestMatchers("/api/v1/customer/**").hasAnyRole("CUSTOMER","SPSO")
-                        .requestMatchers("/v1/api/auth/**").permitAll()
+                        .requestMatchers("/api/v1/auth/**").permitAll()
                         .anyRequest().denyAll()
                 );
         http.authenticationProvider(authenticationProvider());

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface SPSORepository extends JpaRepository<SPSO,Long> {
-    Optional<SPSO> findByStudentID(String studentID);
+    Optional<SPSO> findByEmail(String email);
 }

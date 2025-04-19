@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public CustomUserDetails loadUserByUsername(String username)  {
         String requesturl = request.getRequestURL().toString();
         Optional<Customer> customer = customerRepository.findByEmail(username);
-        Optional <SPSO> spso = spsoRepository.findByStudentID(username);
+        Optional <SPSO> spso = spsoRepository.findByEmail(username);
         if (requesturl.contains("spso") && spso.isPresent()) {
             return new CustomUserDetails(spso.get(),spso.get().getPassword(),"ROLE_CUSTOMER,ROLE_SPSO");
         }

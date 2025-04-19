@@ -18,9 +18,6 @@ public class SPSO implements BaseUser {
     @Column(name="id")
     private Long id;
 
-    @Column(name="studentID")
-    private String studentID;
-
     @Column(name="email")
     private String email;
 
